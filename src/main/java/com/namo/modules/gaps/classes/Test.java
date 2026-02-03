@@ -1,4 +1,4 @@
-package com.namo.modules;
+package com.namo.modules.gaps.classes;
 
 public class Test {
     public static void main(String[] args) {
