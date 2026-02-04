@@ -1,9 +1,8 @@
 package com.namo.modules.multithread.gaps;
 
 /*
-    Simple Demo for uncaught exception within the task
-    NOTE: it seems a bit simple can u modify the code to make it more realistic.
-    because the str we can check it not to be null within construction. In real world what kind of issues we might have for such cases
+    Local try-catch: exception handler within task layer
+    Usage: Handle predictable/expected exceptions in that specific task
  */
 public class LocalExceptionHandler implements Runnable {
     private final String str;
@@ -14,11 +13,15 @@ public class LocalExceptionHandler implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("The length of string: " + str.length());
+        try {
+            System.out.println("The length of string: " + str.length());
+        } catch (NullPointerException e) {
+            System.err.println("[CRITICAL] Thread-" + Thread.currentThread().getName() + " " + "Error message: " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new LocalExceptionHandler(null));
+        Thread thread = new Thread(new LocalExceptionHandler(null),"Worker#1");
         thread.start();
     }
 }
